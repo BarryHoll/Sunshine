@@ -36,6 +36,8 @@ import java.util.List;
 
 public class ForecastFragment extends Fragment {
 
+    ArrayAdapter<String> mForecastAdapter;
+
     public ForecastFragment() {
     }
 
@@ -76,14 +78,14 @@ public class ForecastFragment extends Fragment {
         List<String> weeksForecast = new ArrayList<>(
                 Arrays.asList(fakeForecastArray));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+        mForecastAdapter = new ArrayAdapter<>(
                 getActivity(),
                 R.layout.list_item_forecast,
                 R.id.list_item_forcast_textview,
                 weeksForecast);
 
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forcast);
-        listView.setAdapter(adapter);
+        listView.setAdapter(mForecastAdapter);
 
         return rootView;
     }
@@ -91,6 +93,16 @@ public class ForecastFragment extends Fragment {
     public class FetchWeatherTast extends AsyncTask<String, Void, String[]> {
 
         private final String LOG_TAG = FetchWeatherTast.class.getSimpleName();
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            if(result != null){
+                mForecastAdapter.clear();
+                for (String daysForecast : result){
+                    mForecastAdapter.add(daysForecast);
+                }
+            }
+        }
 
         @Override
         protected String[] doInBackground(String... params) {
@@ -121,8 +133,6 @@ public class ForecastFragment extends Fragment {
                         .build();
 
                 URL url = new URL(builtUri.toString());
-
-                Log.v(LOG_TAG, "Built URI: " + builtUri.toString());
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -271,9 +281,6 @@ public class ForecastFragment extends Fragment {
                 resultStrs[i] = day + " - " + description + " - " + highAndLow;
             }
 
-            for (String s : resultStrs) {
-                Log.v(LOG_TAG, "Forecast entry: " + s);
-            }
             return resultStrs;
         }
     }
