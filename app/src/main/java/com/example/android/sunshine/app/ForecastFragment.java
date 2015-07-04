@@ -58,8 +58,8 @@ public class ForecastFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            FetchWeatherTast weatherTast = new FetchWeatherTast();
-            weatherTast.execute("Navan,ie");
+            FetchWeatherTask weatherTask = new FetchWeatherTask();
+            weatherTask.execute("Navan,ie");
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -100,9 +100,9 @@ public class ForecastFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchWeatherTast extends AsyncTask<String, Void, String[]> {
+    public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
-        private final String LOG_TAG = FetchWeatherTast.class.getSimpleName();
+        private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
         @Override
         protected void onPostExecute(String[] result) {
