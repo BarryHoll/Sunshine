@@ -10,5 +10,11 @@
     <string name="pref_location_label">Location</string>
     <string name="pref_location_key" translatable="false">location</string>
     <string name="pref_location_default" translatable="false">Navan,ie</string>
+    <string name="pref_temperature_label">Temperature Units</string>
+    <string name="pref_temperature_label_metric">Metric</string>
+    <string name="pref_temperature_label_imperial">Imperial</string>
+    <string name="pref_temperature_key">units</string>
+    <string name="pref_temperature_metric">metric</string>
+    <string name="pref_temperature_imperial">imperial</string>
 
 </resources>
